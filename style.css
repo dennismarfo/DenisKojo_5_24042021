@@ -1,0 +1,17 @@
+.jumbotron {
+    background-image: url("/Users/apple/Desktop/Desktop/openclassrooms/P5/JWDP5/images/jumbo.jpg");
+    background-size: cover;
+    border-radius: 0%;
+
+  }
+
+  .p-5 {
+    padding: 5rem!important;
+}
+
+* {
+    margin: O;
+    padding: O;
+}
+
+
