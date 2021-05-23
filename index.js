@@ -52,3 +52,6 @@ function displayProduct(product) {
             </div>
             `
 }
+
+
+console.log(products);
