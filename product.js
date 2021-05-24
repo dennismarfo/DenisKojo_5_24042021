@@ -91,7 +91,39 @@ function getProduct() {
                 imageUrl: product.imageUrl,
                 product_id: product._id
             }
-            console.log(lenses_selected);
+            // Local storage
+            // Stockage des données dans le local storage
+            
+            
+            let localStorageProduct = JSON.parse(localStorage.getItem("product"));
+
+
+            // fenêtre de confirmation
+            const confirm = () => {
+                if(window.confirm(`${product.name} avec les lentilles : ${lenses_choice} a bien été ajouté au panier. Voir mon panier OK ou continuer mes achats ANNULER`)){
+                    window.location.href = "cart.html";
+                }else {
+                    window.location.href = "index.html";
+                }
+            }
+            
+            // si produit dans local storage
+            
+            if (localStorageProduct) {
+                localStorageProduct.push(lenses_selected);
+                localStorage.setItem("product", JSON.stringify(localStorageProduct));
+                console.log(localStorageProduct);
+                confirm();
+            
+            } else {
+            // sinon
+                localStorageProduct = [];
+                localStorageProduct.push(lenses_selected);
+                localStorage.setItem("product", JSON.stringify(localStorageProduct));
+                console.log(localStorageProduct);
+                confirm();
+            
+            }
         })
 
 

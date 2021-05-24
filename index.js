@@ -36,14 +36,6 @@ function displayProduct(product) {
             ${product.description}</p>
         </a>
             <div class="buy d-flex justify-content-between align-items-center">
-            <form>
-                <label for="lenses_choice">Choisir Lentille</label>
-                <select class="form-select" id="lenses_select">
-                    <option value="${product.lenses[0]}">${product.lenses[0]}</option>
-                    <option value="${product.lenses[1]}">${product.lenses[1]}</option>
-                    <option value="${product.lenses[2]}">${product.lenses[2]}</option>
-                </select>   
-            </form>
             <div class="price text-secondary"><h5 class="mt-4">${product.price / 100}€</h5></div>
             <a href="#" class="btn btn-dark mt-3"><i class="fas fa-shopping-cart"></i> Ajouter</a>
             </div>
@@ -52,6 +44,3 @@ function displayProduct(product) {
             </div>
             `
 }
-
-
-console.log(products);
