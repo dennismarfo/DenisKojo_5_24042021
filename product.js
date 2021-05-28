@@ -47,9 +47,7 @@ function getProduct() {
         <form>
         <label for="lenses_choice">Choisir lentille</label>
         <select class="form-select" id="lenses_select">
-        <option value="${product.lenses[0]}">${product.lenses[0]}</option>
-        <option value="${product.lenses[1]}">${product.lenses[1]}</option>
-        <option value="${product.lenses[2]}">${product.lenses[2]}</option>
+
         </select> 
         </form>
         <div class="price text-secondary"><h5 class="mt-4">${product.price / 100}€</h5></div>
@@ -60,6 +58,25 @@ function getProduct() {
         
         
         `
+
+        //choix des lenses
+
+        const lenses_options = product.lenses;
+        let structureLenses = [];
+        
+        //Boucle for sur le tableau
+        for (let v = 0; v < lenses_options.length; v++) {
+            structureLenses += `<option value="${v}">${lenses_options[v]}</option>`
+            
+        }
+
+        // Injection des choix lenses dans le html
+
+        const lensesElement = document.querySelector("#lenses_select");
+        lensesElement.innerHTML = structureLenses;
+        
+
+        
 
         // Cart
         // Récup données et renvoi au cart
