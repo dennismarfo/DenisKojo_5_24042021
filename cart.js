@@ -86,6 +86,7 @@ for (let l = 0; l < btnDelete.length; l++){
               localStorageProduct.splice(f, 1);
               console.log(localStorageProduct);
               localStorage.setItem("product", JSON.stringify(localStorageProduct));
+              location.reload();
             }
           }
           displayLocal();
@@ -93,3 +94,61 @@ for (let l = 0; l < btnDelete.length; l++){
     })
 }
 
+//---------------CALCUL TOTAL PANIER--------------//
+
+// Déclaration tableau des prix
+
+let totalCost = [];
+
+//Récupération des prix dans le panier
+
+for (let p = 0; p < localStorageProduct.length; p++) {
+    let listPrice = localStorageProduct[p].price
+
+    // Injection des pris dans le tableaux 'totalCost'
+    totalCost.push(listPrice)
+}
+
+// Faire la somme des montant de mon tableau totalCost
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const costTotalArticle = totalCost.reduce(reducer, 0);
+
+// Html du prix total 
+
+const displayTotalPrice = `
+
+<div class="col-sm-12 col-md-10 col-md-offset-1 total-price">
+<table class="table table-hover">
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th> TOTAL : ${costTotalArticle}€</th>
+</tr>
+</thead>
+</table>
+</div> 
+`
+
+// Injection du code HTML
+let positionElement = document.querySelector("#container-cart");
+
+positionElement.insertAdjacentHTML("beforeend", displayTotalPrice);

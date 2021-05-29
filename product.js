@@ -66,7 +66,7 @@ function getProduct() {
         
         //Boucle for sur le tableau
         for (let v = 0; v < lenses_options.length; v++) {
-            structureLenses += `<option value="${v}">${lenses_options[v]}</option>`
+            structureLenses += `<option value="${lenses_options[v]}">${lenses_options[v]}</option>`
             
         }
 
