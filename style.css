@@ -21,3 +21,22 @@
 .thumbnail{
   margin-right: 20px;
 }
+
+
+/*----------FORMULAIRE PANIER----------*/
+
+#orderForm{
+  border : 2px #25292F solid;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+h2{
+  align-items: center;
+  text-align: center;
+}

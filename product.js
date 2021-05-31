@@ -34,7 +34,7 @@ function getProduct() {
     function displayProduct(product) {
       const structure_product = document.getElementById("full-card").innerHTML += 
         `
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-1" style="max-width: 540px;">
         <div class="row g-0">
         <div class="col-md-12">
         <img class="card-img" src="${product.imageUrl}" alt="photo camera">
@@ -47,11 +47,14 @@ function getProduct() {
         <form>
         <label for="lenses_choice">Choisir lentille</label>
         <select class="form-select" id="lenses_select">
-
         </select> 
+        <label for="quantity">Quantité</label>
+        <select class="quantity" id="quantity"></select>
         </form>
+        
         <div class="price text-secondary"><h5 class="mt-4">${product.price / 100}€</h5></div>
-        <a href="#" class="btn btn-dark mt-3" id="add-cart"><i class="fas fa-shopping-cart"></i> Ajouter</a>
+        <a href="#" class="btn btn-dark mt-3" id="add-cart"><i class="fas fa-shopping-cart"></i>Ajouter</a>
+        
         </div>
         </div>
         </div>
@@ -75,6 +78,21 @@ function getProduct() {
         const lensesElement = document.querySelector("#lenses_select");
         lensesElement.innerHTML = structureLenses;
         
+        // Quantité produits
+
+        const structurQuantity = `
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option> `;
+
+        // Afficher les quantité dans le form
+    const positionElementQuantity = document.querySelector("#quantity");
+    positionElementQuantity.innerHTML = structurQuantity;
+    
+    
 
         
 
@@ -98,13 +116,19 @@ function getProduct() {
             
             // choix utilisateur
             const lenses_choice = cart.value;
+
+            // mettre les quantié dans une variable
+
+            const quantity_choice = positionElementQuantity.value;
             
-            // Récupération des choix de lentilles
+            
+            // Récupération des choix de lentilles et quantité
             let lenses_selected = {
                 name: product.name,
                 description: product.description,
                 lenses_select: lenses_choice,
-                price: product.price / 100,
+                quantity: quantity_choice,
+                price: (product.price *  quantity_choice) / 100,
                 imageUrl: product.imageUrl,
                 product_id: product._id
             }

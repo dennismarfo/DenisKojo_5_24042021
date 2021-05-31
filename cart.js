@@ -39,6 +39,7 @@ function displayLocal() {
             <div class="media-body">
             <h4 class="media-heading"><a href="#">${localStorageProduct[k].name}</a></h4>
             <h5 class="media-heading">Lentille <a href="#">${localStorageProduct[k].lenses_select}</a></h5>
+            <h5 class="media-heading">Quantité <a href="#">${localStorageProduct[k].quantity}</a></h5>
             </div>
             </div></td>
             <td class="col-sm-1 col-md-1" style="text-align: center">
@@ -152,3 +153,92 @@ const displayTotalPrice = `
 let positionElement = document.querySelector("#container-cart");
 
 positionElement.insertAdjacentHTML("beforeend", displayTotalPrice);
+
+
+// Formulaire de commande
+
+const displayFormHtml = () => {
+    const positionElement2 = document.querySelector("#container-cart");
+
+    const formSturtur = `            
+    <div id="orderForm">
+    <h2>Formulaire de commande</h2>
+    
+  <form action="#">
+    <label for="name">Nom :</label>
+    <input type="text" id="lastname" name="lastname" required>
+
+    <label for="firstname">Prénom :</label>
+    <input type="text" name="firstname" id="firstname" required>
+
+    <label for="address">Adresse :</label>
+    <input type="text" name="adress" id="address" required>
+
+
+    <label for="postal">Code postale :</label>
+    <input type="text" name="postal" id="postal" required>
+
+    <label for="city">Ville :</label>
+    <input type="text" name="city" id="city" required>
+
+    <label for="mail">Email :</label>
+    <input type="text" name="mail" id="mail" required>
+
+    <button id="sendForm" type="submit" name="sendForm">
+      Confirmer la commande
+    </button>
+  </form>
+</div>`;
+
+
+console.log(positionElement2);
+positionElement2.insertAdjacentHTML("afterend", formSturtur);
+
+};
+
+displayFormHtml();
+
+// Button envoyé formulaire
+const btnSendForm = document.querySelector("#sendForm");
+console.log(btnSendForm);
+
+//AddEnventlistner
+
+btnSendForm.addEventListener("click", (e)=> {
+    e.preventDefault();
+
+    // Récupération des valeurs du formulaire pour le local storage
+
+    const form = {
+
+        lastname: document.querySelector("#lastname").value,
+        firstname: document.querySelector("#firstname").value,
+        address: document.querySelector("#address").value,
+        city: document.querySelector("#postal").value,
+        postal: document.querySelector("#city").value,
+        mail: document.querySelector("#mail").value,
+    }
+
+
+    // Objet "form" dans local storage
+
+    localStorage.setItem("form", JSON.stringify(form));
+    
+
+// Mettre le value du forms et produits selection pour envoyer au serveur
+const toSend = {
+    localStorageProduct,
+    form
+}
+console.log(toSend);
+
+
+})
+
+
+
+
+
+
+
+
