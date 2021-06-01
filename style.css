@@ -15,6 +15,44 @@
 }
 
 
+/*-----------Header--------------*/
+
+.container-fluid {
+  width: 90%;
+}
+
+.panier {
+  color: white;
+  margin-right: 20px;
+}
+
+.fa-cart-plus:before {
+    color: white;
+    font-size: 20px;
+}
+
+/*----------Container-----------*/
+
+.row {
+  margin-bottom: 35px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.product-card {
+  color: #25292F;
+}
+
+.card-title {
+  color: brown;
+}
+
+.price {
+  color: brown;
+}
+
 /*----------PAGE PANIER --------------*/
 
 
@@ -22,13 +60,41 @@
   margin-right: 20px;
 }
 
+.row{
+  justify-content: space-around;
+}
+
+.ajout-btn {
+  display: block;
+}
+
+select {
+  width: 200px;
+  margin-left: 20px;
+}
+
+label {
+  margin-left: 20px;
+}
+
+.fiche-price {
+  margin-left: 20px;
+}
+
+
+#orderForm {
+
+}
+
 
 /*----------FORMULAIRE PANIER----------*/
 
 #orderForm{
-  border : 2px #25292F solid;
   display: flex;
   flex-direction: column;
+  border-radius: 25px;
+  padding: 40px;
+  background-color: #CCB69B;
 }
 
 form {

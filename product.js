@@ -35,11 +35,11 @@ function getProduct() {
       const structure_product = document.getElementById("full-card").innerHTML += 
         `
         <div class="card mb-1" style="max-width: 540px;">
-        <div class="row g-0">
+        <div class="row g-0 card-part">
         <div class="col-md-12">
         <img class="card-img" src="${product.imageUrl}" alt="photo camera">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
         <div class="card-body">
         <h4 class="card-title">${product.name}</h4>
         <p class="card-text">${product.description}</p>
@@ -52,8 +52,8 @@ function getProduct() {
         <select class="quantity" id="quantity"></select>
         </form>
         
-        <div class="price text-secondary"><h5 class="mt-4">${product.price / 100}€</h5></div>
-        <a href="#" class="btn btn-dark mt-3" id="add-cart"><i class="fas fa-shopping-cart"></i>Ajouter</a>
+        <div class="price fiche-price"><h5 class="mt-4">${product.price / 100}€</h5></div>
+        <a href="#" class="btn btn-dark mt-3 ajout-btn" id="add-cart"><i class="fas fa-shopping-cart"></i>Ajouter</a>
         
         </div>
         </div>

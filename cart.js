@@ -39,11 +39,11 @@ function displayLocal() {
             <div class="media-body">
             <h4 class="media-heading"><a href="#">${localStorageProduct[k].name}</a></h4>
             <h5 class="media-heading">Lentille <a href="#">${localStorageProduct[k].lenses_select}</a></h5>
-            <h5 class="media-heading">Quantité <a href="#">${localStorageProduct[k].quantity}</a></h5>
             </div>
             </div></td>
             <td class="col-sm-1 col-md-1" style="text-align: center">
             </td>
+            <td class="col-sm-1 col-md-1 text-center"><strong>${localStorageProduct[k].quantity}</strong></td>
             <td class="col-sm-1 col-md-1 text-center"><strong>${localStorageProduct[k].price}€</strong></td>
             <td class="col-sm-1 col-md-1">
             <button type="button" class="btn btn-danger">
