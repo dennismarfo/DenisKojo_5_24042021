@@ -220,9 +220,32 @@ btnSendForm.addEventListener("click", (e)=> {
     }
 
 
+    //**************************VALIDATION FORMULAIRE************************************************ */
+    // Fonction pour la validité du prénom en bouléen
+    function controlFirstName(){
+
+    
+    // Contrôle du prénom
+    const theFirstName = form.firstname;
+    console.log(theFirstName)
+    if(/^[a-z ,.'-]+$/i.test(theFirstName)){
+    return true;
+    } else {
+        alert("Les chiffres et caractères spéciaux ne sont pas autorisé")
+        return false;
+    }
+}   
+    
+    //*****************************FIN FORMULAIRE******************************************************** */
     // Objet "form" dans local storage
 
+
+if(controlFirstName()){
     localStorage.setItem("form", JSON.stringify(form));
+
+} else {
+    alert("Le formulaire n'est pas correctement rempli")
+};
     
 
 // Mettre le value du forms et produits selection pour envoyer au serveur
@@ -234,7 +257,6 @@ console.log(toSend);
 
 
 })
-
 
 
 
