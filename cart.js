@@ -222,25 +222,62 @@ btnSendForm.addEventListener("click", (e)=> {
 
     //**************************VALIDATION FORMULAIRE************************************************ */
     // Fonction pour la validité du prénom en bouléen
-    function controlFirstName(){
-
+    const textAlert = (value) => {
+        return `${value}: Les chiffres et caractères spéciaux ne sont pas autorisé`
+    }
     
+    
+    
+    const regNamesCity = (value) => {
+        return /^[a-z ,.'-]+$/i.test(value);
+    }
+
+    const regPostal = (value) => {
+        return /^[0-9]{5}$/.test(value);
+    }
+    
+    
+    
+    function controlFirstName(){
     // Contrôle du prénom
     const theFirstName = form.firstname;
-    console.log(theFirstName)
-    if(/^[a-z ,.'-]+$/i.test(theFirstName)){
+    if(regNamesCity(theFirstName)){
     return true;
     } else {
-        alert("Les chiffres et caractères spéciaux ne sont pas autorisé")
+        alert(textAlert("Prénom"));
         return false;
     }
-}   
+}  
+
+
+function controlLastName(){
+    // Contrôle du nom
+    const theLastName = form.lastname;
+    if(regNamesCity(theLastName)){
+    return true;
+    } else {
+        alert(textAlert("Nom"));
+        return false;
+    }
+} 
+
+function controlPostal(){
+    // Contrôle du code postale
+    const postalCode = form.postal;
+    if(regPostal(postalCode)){
+    return true;
+    } else {
+        alert(textAlert("Code postal"));
+        return false;
+    }
+} 
+
     
     //*****************************FIN FORMULAIRE******************************************************** */
     // Objet "form" dans local storage
 
 
-if(controlFirstName()){
+if(controlFirstName() && controlLastName() && controlPostal()){
     localStorage.setItem("form", JSON.stringify(form));
 
 } else {
