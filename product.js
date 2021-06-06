@@ -5,7 +5,7 @@ const queryString_url_id = window.location.search ;
 const urlParams = new URLSearchParams(queryString_url_id);
 
 const product_id = urlParams.get("id");
-console.log(product_id);
+
 
 
 (async function() {
@@ -52,7 +52,7 @@ function getProduct() {
         <select class="quantity" id="quantity"></select>
         </form>
         
-        <div class="price fiche-price"><h5 class="mt-4">${product.price / 100}€</h5></div>
+        <div class="price fiche-price"><h5 class="mt-4">${product.price / 100},00€</h5></div>
         <a href="#" class="btn btn-dark mt-3 ajout-btn" id="add-cart"><i class="fas fa-shopping-cart"></i>Ajouter</a>
         
         </div>
@@ -107,7 +107,7 @@ function getProduct() {
         // Selection du boutton ajouter au panier dans le DOM
         
         const add_cart = document.querySelector("#add-cart");
-        console.log(add_cart);
+       
         
         // Ecoute du boutton et ajout du panier
         
@@ -136,7 +136,8 @@ function getProduct() {
             // Stockage des données dans le local storage
             
             
-            let localStorageProduct = JSON.parse(localStorage.getItem("product"));
+            let products = JSON.parse(localStorage.getItem("products"));
+ 
 
 
             // fenêtre de confirmation
@@ -147,21 +148,25 @@ function getProduct() {
                     window.location.href = "index.html";
                 }
             }
+
+            // Fonction d'ajout de produit dans le local storage
+const addProductStorage = () => {
+    products.push(lenses_selected);
+    localStorage.setItem("products", JSON.stringify(products));
+};
+
+
             
             // si produit dans local storage
             
-            if (localStorageProduct) {
-                localStorageProduct.push(lenses_selected);
-                localStorage.setItem("product", JSON.stringify(localStorageProduct));
-                console.log(localStorageProduct);
+            if (products) {
+                addProductStorage();
                 confirm();
             
             } else {
             // sinon
-                localStorageProduct = [];
-                localStorageProduct.push(lenses_selected);
-                localStorage.setItem("product", JSON.stringify(localStorageProduct));
-                console.log(localStorageProduct);
+                products = [];
+                addProductStorage();
                 confirm();
             
             }
@@ -170,6 +175,18 @@ function getProduct() {
 
 
     }
+
+    let products = JSON.parse(localStorage.getItem("products"));
+
+let qtyCart = [];
+        for(let q = 0; q < products.length; q++) {
+            let listQty = products[q].quantity
+            qtyCart.push(listQty)
+        }
+        const stringsToArray = qtyCart.map((i) => Number(i));
+        const reducer01 = (accumulator, currentValue) => accumulator + currentValue;
+        const totalQtyCart = stringsToArray.reduce(reducer01, 0);
+        document.querySelector(".qty-cart").innerHTML = `<span class="qty-count">(${totalQtyCart})</san>`
     
   
 

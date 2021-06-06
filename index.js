@@ -33,7 +33,7 @@ function displayProduct(product) {
             ${product.description}</p>
         </a>
             <div class="buy d-flex justify-content-between align-items-center">
-            <div class="price"><h5 class="mt-4">${product.price / 100}€</h5></div>
+            <div class="price"><h5 class="mt-4">${product.price / 100},00€</h5></div>
             <a href="#" class="btn btn-dark mt-3">Voir produit</a>
             </div>
             </div>
@@ -41,3 +41,15 @@ function displayProduct(product) {
             </div>
             `
 }
+
+let products = JSON.parse(localStorage.getItem("products"));
+
+let qtyCart = [];
+        for(let q = 0; q < products.length; q++) {
+            let listQty = products[q].quantity
+            qtyCart.push(listQty)
+        }
+        const stringsToArray = qtyCart.map((i) => Number(i));
+        const reducer01 = (accumulator, currentValue) => accumulator + currentValue;
+        const totalQtyCart = stringsToArray.reduce(reducer01, 0);
+        document.querySelector(".qty-cart").innerHTML = `<span class="qty-count">(${totalQtyCart})</san>`

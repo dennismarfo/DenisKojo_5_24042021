@@ -24,11 +24,21 @@
 .panier {
   color: white;
   margin-right: 20px;
+  border: white 2px solid;
+  padding: 3px;
+  border-radius: 8px;
 }
 
 .fa-cart-plus:before {
     color: white;
-    font-size: 20px;
+    font-size: 16px;
+}
+
+
+.qty-count {
+  color: white;
+  margin: 6px;
+  font-size: 16px;
 }
 
 /*----------Container-----------*/
@@ -82,8 +92,8 @@ label {
 }
 
 
-#orderForm {
-
+a {
+  color: brown;
 }
 
 
