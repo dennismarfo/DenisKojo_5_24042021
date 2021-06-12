@@ -25,7 +25,8 @@
   color: white;
   margin-right: 20px;
   border: white 2px solid;
-  padding: 3px;
+  padding: 4px;
+  padding-right: 7px;
   border-radius: 8px;
 }
 
@@ -115,4 +116,43 @@ form {
 h2{
   align-items: center;
   text-align: center;
+}
+
+.header-table {
+  padding-left: 0px;
+  padding-right: 0px;
+
+}
+
+.media-body {
+  max-width: 650px;
+}
+
+.qty-header {
+  width: 316px;
+}
+
+.total-footer {
+  width: 269px;
+}
+
+.product-header {
+  vertical-align: top;
+  border-top: 2px solid #dee2e6;
+}
+
+.product-header {
+  vertical-align: top;
+  border-top: 2px solid #dee2e6;
+}
+
+.table thead th {
+  /* vertical-align: top; */
+  border-top: 2px solid #dee2e6;
+}
+
+.table td, .table th {
+  padding: .75rem;
+  vertical-align: 0;
+  border-top: 0cm; 
 }
