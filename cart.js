@@ -1,7 +1,9 @@
+
+
 function displayLocal() {
     // Déclaration de la variable "products" dans laquelle on met les clés valeurs qui sont dans le localstorage
     
-    let products = JSON.parse(localStorage.getItem("products"));
+    let productList = JSON.parse(localStorage.getItem("products"));
     
     // ----------------AFFICHAGE DES PRODUITS DU PANIER-----------------------
     
@@ -12,7 +14,7 @@ function displayLocal() {
     
     // si panier vide : Le panier est vide
     
-    if(products === null || products == 0) {
+    if(productList === null || productList == 0) {
        const emptyCart = `              
        <div class="col-sm-12 col-md-10 col-md-offset-1" id="container-cart">
        <table class="table table-hover">
@@ -27,23 +29,22 @@ function displayLocal() {
     } else {
     // sinon afficher les produits du local storage
     let cartStructur = [];
-        for(k = 0; k < products.length; k++) {
+        for(k = 0; k < productList.length; k++) {
             cartStructur = cartStructur + `              
             <table class="table table-hover">
             <tbody>
             <tr>
             <td class="col-sm-8 col-md-6">
             <div class="media">
-            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${products[k].imageUrl}" style="width: 72px; height: 72px;"> </a>
+            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${productList[k].imageUrl}" style="width: 72px; height: 72px;"> </a>
             <div class="media-body">
-            <h4 class="media-heading"><a href="#">${products[k].name}</a></h4>
-            <h5 class="media-heading">Lentille <a href="#">${products[k].lenses_select}</a></h5>
+            <h4 class="media-heading"><a href="#">${productList[k].name}</a></h4>
+            <h5 class="media-heading">Lentille <a href="#">${productList[k].lenses_select}</a></h5>
             </div>
             </div></td>
-            <td class="col-sm-1 col-md-1" style="text-align: center">
-            </td>
-            <td class="col-sm-1 col-md-1 text-center"><strong>${products[k].quantity}</strong></td>
-            <td class="col-sm-1 col-md-1 text-center"><strong>${products[k].price},00€</strong></td>
+
+            <td class="col-sm-1 col-md-1"><strong>${productList[k].quantity}</strong></td>
+            <td class="col-sm-1 col-md-1 text-center"><strong>${productList[k].price},00€</strong></td>
             <td class="col-sm-1 col-md-1">
             <button type="button" class="btn btn-outline-danger">
             <span class="fa fa-remove"></span> Supprimer
@@ -52,7 +53,7 @@ function displayLocal() {
             </tbody>
             </table>		`;
     }
-        if(k == products.length){
+        if(k == productList.length){
         positionElement.innerHTML = cartStructur;
     } 
     
@@ -76,14 +77,14 @@ for (let l = 0; l < btnDelete.length; l++){
     btnDelete[l].addEventListener("click", (e) => {
         e.preventDefault();
 
-        let id_selected = products[l].product_id;
+        let id_selected = productList[l].product_id;
         
 
-        for (let f = products.length - 1; f >= 0; --f) {
-            if (products[f].product_id === id_selected) {
+        for (let f = productList.length - 1; f >= 0; --f) {
+            if (productList[f].product_id === id_selected) {
               alert('Le produit a été supprimer');
-              products.splice(f, 1);
-              localStorage.setItem("products", JSON.stringify(products));
+              productList.splice(f, 1);
+              localStorage.setItem("products", JSON.stringify(productList));
               location.reload();
             }
           }
@@ -124,7 +125,8 @@ btn_delete_all.addEventListener("click", (e) => {
 
 
 //---------------CALCUL TOTAL PANIER--------------//
-products = JSON.parse(localStorage.getItem("products"));
+products = JSON.parse(localStorage.getItem("products")).map(product => product.product_id);
+productList = JSON.parse(localStorage.getItem("products"));
 
 // Déclaration tableau des prix
 
@@ -132,8 +134,8 @@ let totalCost = [];
 
 //Récupération des prix dans le panier
 
-for (let p = 0; p < products.length; p++) {
-    let listPrice = products[p].price
+for (let p = 0; p < productList.length; p++) {
+    let listPrice = productList[p].price
 
     // Injection des pris dans le tableaux 'totalCost'
     totalCost.push(listPrice)
@@ -148,7 +150,7 @@ const costTotalArticle = totalCost.reduce(reducer, 0);
 
 const displayTotalPrice = `
 
-<div class="col-sm-12 col-md-10 col-md-offset-1 total-price">
+<div class="col-sm-12 col-md-12 col-md-offset-1 total-price">
 <table class="table table-hover">
 <thead>
 <tr>
@@ -171,7 +173,7 @@ const displayTotalPrice = `
 <th></th>
 <th></th>
 <th></th>
-<th> TOTAL : ${costTotalArticle},00€</th>
+<th class="total-footer"> TOTAL : ${costTotalArticle},00€</th>
 </tr>
 </thead>
 </table>
@@ -240,15 +242,14 @@ btnSendForm.addEventListener("click", (e)=> {
 
     const contact = {
 
-        lastname: document.querySelector("#lastname").value,
-        firstname: document.querySelector("#firstname").value,
-        address: document.querySelector("#address").value,
+        lastName: document.querySelector("#lastname").value,
+        firstName: document.querySelector("#firstname").value,
+        address: document.querySelector("#address").value + ' ' + document.querySelector("#postal").value,
         city: document.querySelector("#city").value,
-        postal: document.querySelector("#postal").value,
-        mail: document.querySelector("#mail").value,
+        email: document.querySelector("#mail").value,
     }
 
-
+console.log(contact.address)
     //**************************VALIDATION FORMULAIRE************************************************ */
     // Fonction pour la validité du prénom en bouléen
     const textAlert = (value) => {
@@ -270,7 +271,7 @@ btnSendForm.addEventListener("click", (e)=> {
     }
 
     const regAdress = (value) => {
-        return /^[A-Za-z0-9\s]{5,50}$/.test(value);
+        return /^[A-Za-z0-9\s]{5,100}$/.test(value);
     }
 
     
@@ -278,7 +279,7 @@ btnSendForm.addEventListener("click", (e)=> {
     
     function controlFirstName(){
     // Contrôle du prénom
-    const theFirstName = contact.firstname;
+    const theFirstName = contact.firstName;
     if(regNamesCity(theFirstName)){
     return true;
     } else {
@@ -290,7 +291,7 @@ btnSendForm.addEventListener("click", (e)=> {
 
 function controlLastName(){
     // Contrôle du nom
-    const theLastName = contact.lastname;
+    const theLastName = contact.lastName;
     if(regNamesCity(theLastName)){
     return true;
     } else {
@@ -299,20 +300,11 @@ function controlLastName(){
     }
 } 
 
-function controlPostal(){
-    // Contrôle du code postale
-    const postalCode = contact.postal;
-    if(regPostal(postalCode)){
-    return true;
-    } else {
-        alert("Code postal : doit être composer de 5 chiffre");
-        return false;
-    }
-} 
+
 
 function controlEmail(){
     // Contrôle du code email
-    const theMail = contact.mail;
+    const theMail = contact.email;
     if(regEmail(theMail)){
     return true;
     } else {
@@ -348,49 +340,68 @@ function controlCity(){
     // Objet "form" dans local storage
 
 
-if(controlFirstName() && controlLastName() && controlPostal() && controlEmail() && controlAdress() && controlCity()){
+if(controlFirstName() && controlLastName() && controlEmail() && controlAdress() && controlCity()){
     localStorage.setItem("contact", JSON.stringify(contact));
+    localStorage.setItem("costTotalArticle", JSON.stringify(costTotalArticle));
+    // Mettre le value du forms et produits selection pour envoyer au serveur
+    const order = {
+        contact,
+        products
+    }
 
+    sendToServer(order);
+   
 } else {
     alert("Le formulaire n'est pas correctement rempli")
 };
     
 
-// Mettre le value du forms et produits selection pour envoyer au serveur
-const order = {
-    contact,
-    products
+
+
+
+
+})
+
+function sendToServer(order){
+     //Envoi de l'objet "toSend" vers le serveur
+     const postMethod = fetch("http://localhost:3000/api/cameras/order", {
+        method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            'Content-Type' : 'application/json',
+        },
+    })
+    // Réponse du serveur
+    postMethod.then(async(response) => {
+        // si la promesse ne passe pas
+        try {
+            console.log(response);
+            const content1 = await response.json();
+            console.log(content1);
+    
+            if(response.ok){
+                console.log(`Response est ok ${response.ok}`)
+
+                // Récupération de l'id de la response
+                console.log("id du serveur")
+                console.log(content1.orderId);
+                //Mettre l'id du serveur dans le local storage
+                localStorage.setItem("orderId", content1.orderId);
+                // Direction vers la page order
+                window.location = "confirmation.html";
+
+            } else {
+                alert(`Erreur du serveur!`)
+            }
+    
+    
+        } catch(e){
+            console.log(e);
+            alert(`OUPSS ERREUR 400`)
+        }
+    })
+    
 }
-console.log(JSON.stringify(order));
-console.log(products);
-
-//Envoi de l'objet "toSend" vers le serveur
-const postMethod = fetch("http://localhost:3000/api/cameras/order", {
-    method: 'POST',
-    body: JSON.stringify(order),
-    mode: 'cors',
-    headers: {
-        'Content-Type' : 'application/json',
-    },
-}).then(response => {
-
-    return response.json();
-
-}).then( r => {
-    sessionStorage.setItem('contact', JSON.stringify(r.contact));
-    sessionStorage.setItem('orderId', JSON.stringify(r.orderId));
-    sessionStorage.setItem('total', JSON.stringify(total));
-
-})
-.catch((e) => {
-    displayError();
-    console.log(e);
-})
-
-// Réponse du serveur
-
-
-})
 
 
 // Mettre le contenu du localstorage dans le formulaire
@@ -405,12 +416,11 @@ if (dataLocalStorage == null) {
 } else {
 
     // Inserer les valeurs recolter pour les mettre dans le formulaire
-    document.querySelector("#lastname").value = dataLocalJs.lastname;
-    document.querySelector("#firstname").value = dataLocalJs.firstname;
+    document.querySelector("#lastname").value = dataLocalJs.lastName;
+    document.querySelector("#firstname").value = dataLocalJs.firstName;
     document.querySelector("#address").value = dataLocalJs.address;
-    document.querySelector("#postal").value = dataLocalJs.postal;
     document.querySelector("#city").value = dataLocalJs.city;
-    document.querySelector("#mail").value = dataLocalJs.mail;
+    document.querySelector("#mail").value = dataLocalJs.email;
 };
 
 
