@@ -156,3 +156,19 @@ h2{
   vertical-align: 0;
   border-top: 0cm; 
 }
+
+/*-----------PAGE CONFIRMATION-----------*/
+
+.container-confirmation {
+  border: 1px solid #25292F;
+  border-radius: 25px;
+  margin-top: 50px;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+}
+

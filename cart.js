@@ -342,42 +342,65 @@ function controlCity(){
 
 if(controlFirstName() && controlLastName() && controlEmail() && controlAdress() && controlCity()){
     localStorage.setItem("contact", JSON.stringify(contact));
+    // Mettre le value du forms et produits selection pour envoyer au serveur
+    const order = {
+        contact,
+        products
+    }
 
+    sendToServer(order);
+   
 } else {
     alert("Le formulaire n'est pas correctement rempli")
 };
     
 
-// Mettre le value du forms et produits selection pour envoyer au serveur
-const order = {
-    contact,
-    products
+
+
+
+
+})
+
+function sendToServer(order){
+     //Envoi de l'objet "toSend" vers le serveur
+     const postMethod = fetch("http://localhost:3000/api/cameras/order", {
+        method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            'Content-Type' : 'application/json',
+        },
+    })
+    // Réponse du serveur
+    postMethod.then(async(response) => {
+        // si la promesse ne passe pas
+        try {
+            console.log(response);
+            const content1 = await response.json();
+            console.log(content1);
+    
+            if(response.ok){
+                console.log(`Response est ok ${response.ok}`)
+
+                // Récupération de l'id de la response
+                console.log("id du serveur")
+                console.log(content1.orderId);
+                //Mettre l'id du serveur dans le local storage
+                localStorage.setItem("orderId", content1.orderId);
+                // Direction vers la page order
+                window.location = "confirmation.html";
+
+            } else {
+                alert(`Erreur du serveur!`)
+            }
+    
+    
+        } catch(e){
+            console.log(e);
+            alert(`OUPSS ERREUR 400`)
+        }
+    })
+    
 }
-console.log(JSON.stringify(order));
-console.log(products);
-
-//Envoi de l'objet "toSend" vers le serveur
-const postMethod = fetch("http://localhost:3000/api/cameras/order", {
-    method: 'POST',
-    body: JSON.stringify(order),
-    headers: {
-        'Content-Type' : 'application/json',
-    },
-})
-
-
-// Réponse du serveur
-postMethod.then(async(response) => {
-    try {
-        console.log(response);
-        const content1 = await response.json();
-        console.log(content1);
-    } catch(e){
-        console.log(e);
-    }
-})
-
-})
 
 
 // Mettre le contenu du localstorage dans le formulaire
@@ -392,12 +415,11 @@ if (dataLocalStorage == null) {
 } else {
 
     // Inserer les valeurs recolter pour les mettre dans le formulaire
-    document.querySelector("#lastname").value = dataLocalJs.lastname;
-    document.querySelector("#firstname").value = dataLocalJs.firstname;
+    document.querySelector("#lastname").value = dataLocalJs.lastName;
+    document.querySelector("#firstname").value = dataLocalJs.firstName;
     document.querySelector("#address").value = dataLocalJs.address;
-    document.querySelector("#postal").value = dataLocalJs.postal;
     document.querySelector("#city").value = dataLocalJs.city;
-    document.querySelector("#mail").value = dataLocalJs.mail;
+    document.querySelector("#mail").value = dataLocalJs.email;
 };
 
 
