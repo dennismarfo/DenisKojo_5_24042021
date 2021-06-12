@@ -342,6 +342,7 @@ function controlCity(){
 
 if(controlFirstName() && controlLastName() && controlEmail() && controlAdress() && controlCity()){
     localStorage.setItem("contact", JSON.stringify(contact));
+    localStorage.setItem("costTotalArticle", JSON.stringify(costTotalArticle));
     // Mettre le value du forms et produits selection pour envoyer au serveur
     const order = {
         contact,

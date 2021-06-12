@@ -159,16 +159,20 @@ h2{
 
 /*-----------PAGE CONFIRMATION-----------*/
 
-.container-confirmation {
+#container-confirmation {
   border: 1px solid #25292F;
   border-radius: 25px;
   margin-top: 50px;
 }
 
-footer{
+.footer-confirm{
   position: absolute;
   bottom: 0;
   width: 100%;
 
+}
+
+.strong{
+  font-weight: bold;
 }
 
