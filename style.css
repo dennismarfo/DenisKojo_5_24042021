@@ -121,6 +121,11 @@ h2{
 .header-table {
   padding-left: 0px;
   padding-right: 0px;
+  flex-direction: row-reverse;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 
 }
 
@@ -157,6 +162,10 @@ h2{
   border-top: 0cm; 
 }
 
+.pics {
+  padding: 0px;
+}
+
 /*-----------PAGE CONFIRMATION-----------*/
 
 #container-confirmation {
@@ -174,5 +183,10 @@ h2{
 
 .strong{
   font-weight: bold;
+}
+
+tr td:first-child,
+tr td:last-child{
+    padding: 0;
 }
 

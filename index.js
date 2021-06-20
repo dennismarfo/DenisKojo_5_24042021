@@ -45,6 +45,11 @@ function displayProduct(product) {
 let products = JSON.parse(localStorage.getItem("products"));
 
 let qtyCart = [];
+if(products == null){
+    document.querySelector(".qty-cart").innerHTML = `<span class="qty-count">(0)</span>`
+} else {
+
+
         for(let q = 0; q < products.length; q++) {
             let listQty = products[q].quantity
             qtyCart.push(listQty)
@@ -52,4 +57,5 @@ let qtyCart = [];
         const stringsToArray = qtyCart.map((i) => Number(i));
         const reducer01 = (accumulator, currentValue) => accumulator + currentValue;
         const totalQtyCart = stringsToArray.reduce(reducer01, 0);
-        document.querySelector(".qty-cart").innerHTML = `<span class="qty-count">(${totalQtyCart})</san>`
+        document.querySelector(".qty-cart").innerHTML = `<span class="qty-count">(${totalQtyCart})</span>`
+    }

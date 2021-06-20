@@ -10,6 +10,7 @@ function displayLocal() {
     // SELECTION DE LA CLASSE POUR INJECTION DU CODE HTML
     
     const positionElement = document.querySelector("#container-cart");
+    const positionEl = document.querySelector(".table-hover tbody")
     
     
     // si panier vide : Le panier est vide
@@ -17,11 +18,6 @@ function displayLocal() {
     if(productList === null || productList == 0) {
        const emptyCart = `              
        <div class="col-sm-12 col-md-10 col-md-offset-1" id="container-cart">
-       <table class="table table-hover">
-       <thead>
-    
-       </thead>
-       </table>
        <h5 class="text-justify">Votre panier est vide</h5>
        </div>`;
     
@@ -31,30 +27,30 @@ function displayLocal() {
     let cartStructur = [];
         for(k = 0; k < productList.length; k++) {
             cartStructur = cartStructur + `              
-            <table class="table table-hover">
-            <tbody>
-            <tr>
-            <td class="col-sm-8 col-md-6">
+          
+           
+            <tr class="col-sm-12 col-md-12">
+            <td class="col-sm-12 col-md-12 pics">
             <div class="media">
             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${productList[k].imageUrl}" style="width: 72px; height: 72px;"> </a>
             <div class="media-body">
-            <h4 class="media-heading"><a href="#">${productList[k].name}</a></h4>
-            <h5 class="media-heading">Lentille <a href="#">${productList[k].lenses_select}</a></h5>
+            <span class="media-heading"><a href="#">${productList[k].name}</a></span>
+            <span class="media-heading">Lentille <a href="#">${productList[k].lenses_select}</a></span>
             </div>
             </div></td>
 
-            <td class="col-sm-1 col-md-1"><strong>${productList[k].quantity}</strong></td>
-            <td class="col-sm-1 col-md-1 text-center"><strong>${productList[k].price},00€</strong></td>
-            <td class="col-sm-1 col-md-1">
+            <td class="col-sm-12 col-md-12"><strong>${productList[k].quantity}</strong></td>
+            <td class="col-sm-12 col-md-12 text-center"><strong>${productList[k].price},00€</strong></td>
+            <td class="col-sm-12 col-md-12">
             <button type="button" class="btn btn-outline-danger">
             <span class="fa fa-remove"></span> Supprimer
             </button></td>
             </tr>
-            </tbody>
-            </table>		`;
+            
+           		`;
     }
         if(k == productList.length){
-        positionElement.innerHTML = cartStructur;
+        positionEl.innerHTML = cartStructur;
     } 
     
     
@@ -125,21 +121,27 @@ btn_delete_all.addEventListener("click", (e) => {
 
 
 //---------------CALCUL TOTAL PANIER--------------//
-products = JSON.parse(localStorage.getItem("products")).map(product => product.product_id);
-productList = JSON.parse(localStorage.getItem("products"));
 
+productList = JSON.parse(localStorage.getItem("products"));
 // Déclaration tableau des prix
 
 let totalCost = [];
+if (productList == null) {
 
-//Récupération des prix dans le panier
-
-for (let p = 0; p < productList.length; p++) {
-    let listPrice = productList[p].price
-
-    // Injection des pris dans le tableaux 'totalCost'
-    totalCost.push(listPrice)
+    products = [];
+} else {
+    products = JSON.parse(localStorage.getItem("products")).map(product => product.product_id);
+    //Récupération des prix dans le panier
+    
+    for (let p = 0; p < productList.length; p++) {
+        let listPrice = productList[p].price
+    
+        // Injection des pris dans le tableaux 'totalCost'
+        totalCost.push(listPrice)
+    }
 }
+
+
 
 // Faire la somme des montant de mon tableau totalCost
 
@@ -150,29 +152,10 @@ const costTotalArticle = totalCost.reduce(reducer, 0);
 
 const displayTotalPrice = `
 
-<div class="col-sm-12 col-md-12 col-md-offset-1 total-price">
+<div class=" total-price">
 <table class="table table-hover">
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
 <th class="total-footer"> TOTAL : ${costTotalArticle},00€</th>
 </tr>
 </thead>
@@ -215,14 +198,14 @@ const displayFormHtml = () => {
     <label for="mail">Email :</label>
     <input type="text" name="mail" id="mail" required>
 
-    <button id="sendForm" type="submit" name="sendForm">
+    <button class="btn btn-outline-dark" id="sendForm" type="submit" name="sendForm">
       Confirmer la commande
     </button>
   </form>
 </div>`;
 
 
-console.log(positionElement2);
+
 positionElement2.insertAdjacentHTML("afterend", formSturtur);
 
 };
@@ -231,7 +214,7 @@ displayFormHtml();
 
 // Button envoyé formulaire
 const btnSendForm = document.querySelector("#sendForm");
-console.log(btnSendForm);
+
 
 //AddEnventlistner
 
