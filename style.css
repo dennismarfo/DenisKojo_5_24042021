@@ -1,5 +1,5 @@
 .jumbotron {
-    background-image: url("/Users/apple/Desktop/Desktop/openclassrooms/P5/JWDP5/images/jumbo.jpg");
+    background-image: url("./images/jumbo.jpg");
     background-size: cover;
     border-radius: 0%;
 

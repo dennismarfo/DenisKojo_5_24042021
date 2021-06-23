@@ -30,21 +30,22 @@ function displayLocal() {
           
            
             <tr class="col-sm-12 col-md-12">
-            <td class="col-sm-12 col-md-12 pics">
-            <div class="media">
-            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${productList[k].imageUrl}" style="width: 72px; height: 72px;"> </a>
-            <div class="media-body">
-            <span class="media-heading"><a href="#">${productList[k].name}</a></span>
-            <span class="media-heading">Lentille <a href="#">${productList[k].lenses_select}</a></span>
-            </div>
-            </div></td>
+                <td class="col-sm-12 col-md-12 pics">
+                    <div class="media">
+                        <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${productList[k].imageUrl}" style="width: 72px; height: 72px;"> </a>
+                        <div class="media-body">
+                            <span class="media-heading"><a href="#">${productList[k].name}</a></span>
+                            <span class="media-heading">Lentille <a href="#">${productList[k].lenses_select}</a></span>
+                        </div>
+                    </div>
+                </td>
 
-            <td class="col-sm-12 col-md-12"><strong>${productList[k].quantity}</strong></td>
-            <td class="col-sm-12 col-md-12 text-center"><strong>${productList[k].price},00€</strong></td>
-            <td class="col-sm-12 col-md-12">
-            <button type="button" class="btn btn-outline-danger">
-            <span class="fa fa-remove"></span> Supprimer
-            </button></td>
+                <td class="col-sm-12 col-md-12"><strong>${productList[k].quantity}</strong></td>
+                <td class="col-sm-12 col-md-12 text-center"><strong>${productList[k].price},00€</strong></td>
+                <td class="col-sm-12 col-md-12">
+                    <button type="button" class="btn btn-outline-danger">
+                        <span class="fa fa-remove"></span> Supprimer
+                    </button></td>
             </tr>
             
            		`;
@@ -153,13 +154,13 @@ const costTotalArticle = totalCost.reduce(reducer, 0);
 const displayTotalPrice = `
 
 <div class=" total-price">
-<table class="table table-hover">
-<thead>
-<tr>
-<th class="total-footer"> TOTAL : ${costTotalArticle},00€</th>
-</tr>
-</thead>
-</table>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="total-footer"> TOTAL : ${costTotalArticle},00€</th>
+            </tr>
+        </thead>
+    </table>
 </div> 
 `
 
@@ -232,7 +233,7 @@ btnSendForm.addEventListener("click", (e)=> {
         email: document.querySelector("#mail").value,
     }
 
-console.log(contact.address)
+    console.log(contact.address)
     //**************************VALIDATION FORMULAIRE************************************************ */
     // Fonction pour la validité du prénom en bouléen
     const textAlert = (value) => {
@@ -260,83 +261,83 @@ console.log(contact.address)
     
     
     
-    function controlFirstName(){
-    // Contrôle du prénom
-    const theFirstName = contact.firstName;
-    if(regNamesCity(theFirstName)){
-    return true;
-    } else {
-        alert(textAlert("Prénom"));
+        function controlFirstName(){
+        // Contrôle du prénom
+        const theFirstName = contact.firstName;
+        if(regNamesCity(theFirstName)){
+            return true;
+        } else {
+            alert(textAlert("Prénom"));
         return false;
-    }
-}  
+        }
+    }  
 
 
-function controlLastName(){
-    // Contrôle du nom
-    const theLastName = contact.lastName;
-    if(regNamesCity(theLastName)){
-    return true;
-    } else {
-        alert(textAlert("Nom"));
+        function controlLastName(){
+        // Contrôle du nom
+        const theLastName = contact.lastName;
+        if(regNamesCity(theLastName)){
+            return true;
+        } else {
+            alert(textAlert("Nom"));
         return false;
-    }
-} 
+        }
+    } 
 
 
 
-function controlEmail(){
-    // Contrôle du code email
-    const theMail = contact.email;
-    if(regEmail(theMail)){
-    return true;
-    } else {
-        alert("L'email est invalide");
+        function controlEmail(){
+        // Contrôle du code email
+        const theMail = contact.email;
+        if(regEmail(theMail)){
+            return true;
+        } else {
+            alert("L'email est invalide");
         return false;
-    }
-} 
+        }
+    } 
 
-function controlAdress(){
-    // Contrôle du code adresse
-    const theAdress = contact.address;
-    if(regAdress(theAdress)){
-    return true;
-    } else {
-        alert("L'adresse est invalide");
+        function controlAdress(){
+        // Contrôle du code adresse
+        const theAdress = contact.address;
+        if(regAdress(theAdress)){
+            return true;
+        } else {
+            alert("L'adresse est invalide");
         return false;
-    }
-} 
+        }
+    } 
 
-function controlCity(){
-    // Contrôle de la ville 
-    const theCity = contact.city;
-    if(regNamesCity(theCity)){
-    return true;
-    } else {
-        alert(textAlert("Ville"));
+        function controlCity(){
+        // Contrôle de la ville 
+        const theCity = contact.city;
+        if(regNamesCity(theCity)){
+            return true;
+        } else {
+            alert(textAlert("Ville"));
         return false;
-    }
-} 
+        }
+    } 
 
     
     //*****************************FIN FORMULAIRE******************************************************** */
     // Objet "form" dans local storage
 
 
-if(controlFirstName() && controlLastName() && controlEmail() && controlAdress() && controlCity()){
-    localStorage.setItem("contact", JSON.stringify(contact));
-    localStorage.setItem("costTotalArticle", JSON.stringify(costTotalArticle));
-    // Mettre le value du forms et produits selection pour envoyer au serveur
-    const order = {
-        contact,
-        products
-    }
+    if(controlFirstName() && controlLastName() && controlEmail() && controlAdress() && controlCity()){
+        localStorage.setItem("contact", JSON.stringify(contact));
+        localStorage.setItem("costTotalArticle", JSON.stringify(costTotalArticle));
+        // Mettre le value du forms et produits selection pour envoyer au serveur
+        const order = {
+            contact,
+            products
+        }
 
-    sendToServer(order);
+        sendToServer(order);
    
-} else {
-    alert("Le formulaire n'est pas correctement rempli")
-};
+    } else {
+        alert("Le formulaire n'est pas correctement rempli")
+    };
     
 
 
